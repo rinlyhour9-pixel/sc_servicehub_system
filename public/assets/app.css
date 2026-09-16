@@ -1,0 +1,58 @@
+/* Sidebar & UI tweaks */
+aside {
+    transition: width .20s ease, background-color .15s ease;
+}
+
+/* Prevent horizontal scroll inside sidebar nav */
+aside nav {
+    overflow-x: hidden;
+}
+
+/* Smooth scrollbar for sidebar */
+aside nav::-webkit-scrollbar {
+    width: 8px;
+}
+
+aside nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+}
+
+/* Icon background subtle style */
+.sidebar-icon-bg {
+    transition: background-color .15s ease, transform .12s ease;
+}
+
+.sidebar-icon-bg:hover {
+    transform: translateY(-2px);
+}
+
+/* Tooltip fallback styling (when using title attribute) */
+/* We'll rely on browser title, but keep a class if needed later */
+.tooltip-inline {
+    position: absolute;
+    left: calc(100% + 8px);
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    z-index: 60;
+}
+
+/* Keep footer content inside sidebar and avoid clipping */
+aside>div[aria-footer="true"] {
+    flex-shrink: 0;
+}
+
+/* Slightly larger icons for better visibility */
+.sidebar svg {
+    display: block;
+}
+
+/* Prevent body horizontal scroll from small off-by-1 issues */
+html,
+body {
+    overflow-x: hidden;
+}

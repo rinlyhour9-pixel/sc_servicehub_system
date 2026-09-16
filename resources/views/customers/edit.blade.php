@@ -1,0 +1,11 @@
+@extends('layouts.app')
+@section('title', __('Edit customer'))
+@section('content')
+    <div class="bg-white rounded-lg border border-ink-900/10 p-6 max-w-xl">
+        <form method="POST" action="{{ route('customers.update', $customer) }}" class="space-y-4">
+            @csrf @method('PUT')
+            @include('customers._form', ['customer' => $customer])
+            <button class="bg-rust hover:bg-rust-600 text-white text-sm font-medium rounded-md px-4 py-2 transition">{{ __('Save changes') }}</button>
+        </form>
+    </div>
+@endsection

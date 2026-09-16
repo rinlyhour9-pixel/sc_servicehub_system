@@ -1,0 +1,8 @@
+<?php
+namespace App\Http\Controllers;
+use App\Models\DailyOperation; use App\Models\WalletTransaction; use Illuminate\Http\Request;
+class WalletController extends Controller {
+ public function index(){ $day=DailyOperation::whereDate('business_date',today())->first(); $transactions=$day?$day->walletTransactions()->with('invoice.serviceRequest.customer')->latest()->get():collect(); $summary=$this->summary($day); return view('wallet.index',compact('day','transactions','summary')); }
+ public function store(Request $request){$day=DailyOperation::whereDate('business_date',today())->whereNull('closed_at')->firstOrFail();$data=$request->validate(['type'=>['required','in:'.implode(',',WalletTransaction::TYPES)],'payment_method'=>['required','in:'.implode(',',WalletTransaction::METHODS)],'amount'=>['required','numeric','gt:0'],'description'=>['nullable','string','max:255']]);$day->walletTransactions()->create($data+['created_by'=>$request->user()->id]);return back()->with('status','Wallet transaction recorded.');}
+ public function summary(?DailyOperation $day):array { $rows=$day?$day->walletTransactions:collect();$amount=fn($type,$method=null)=>(float)$rows->where('type',$type)->when($method,fn($r)=>$r->where('payment_method',$method))->sum('amount');$cashSales=$amount('sale','cash');$expenses=$amount('expense','cash');$refunds=$amount('refund','cash');return ['sales'=>$amount('sale'),'cash_sales'=>$cashSales,'bank_sales'=>$amount('sale','bank_qr'),'expenses'=>$amount('expense'),'receivables'=>$amount('receivable'),'refunds'=>$amount('refund'),'delivery'=>$amount('delivery_payment'),'expected_cash'=>($day?(float)$day->opening_cash:0)+$cashSales-$expenses-$refunds]; }
+}
