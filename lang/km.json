@@ -337,5 +337,15 @@
     "e.g. Kitchen sink leaking": "ឧ. ទុយោទឹកលេច",
     "hrs": "ម៉ោង",
     "priority": "អាទិភាព",
-    "recorded in cash drawer": "បានកត់ត្រាក្នុងប្រអប់សាច់ប្រាក់"
+    "recorded in cash drawer": "បានកត់ត្រាក្នុងប្រអប់សាច់ប្រាក់",
+    "Customer name": "ឈ្មោះអតិថិជន",
+    "Choose existing": "ជ្រើសរើសដែលមានស្រាប់",
+    "+ New customer": "+ អតិថិជនថ្មី",
+    "Invoices & Billing": "វិក្កយបត្រ និងការទូទាត់",
+    "Income by day, cash vs bank/QR, expenses and net total.": "ចំណូលតាមថ្ងៃ សាច់ប្រាក់ធៀបនឹងធនាគារ/QR ការចំណាយ និងចំណូលសុទ្ធសរុប។",
+    "Ticket volume by status, priority, category, and average turnaround.": "ចំនួនសំណើតាមស្ថានភាព អាទិភាព ប្រភេទ និងរយៈពេលជាមធ្យម។",
+    "Jobs completed vs open per technician, with completion rate.": "ការងារបានបញ្ចប់ធៀបនឹងកំពុងដំណើរការក្នុងមួយជាងបច្ចេកទេស ជាមួយអត្រាបញ្ចប់។",
+    "Top customers by revenue and service history.": "អតិថិជនកំពូលតាមចំណូល និងប្រវត្តិសេវាកម្ម។",
+    "Paid vs unpaid totals and outstanding balance aging.": "សរុបបានទូទាត់ធៀបនឹងមិនទាន់ទូទាត់ និងអាយុកាលសមតុល្យនៅសល់។",
+    "Expected vs actual cash per closed business day.": "សាច់ប្រាក់រំពឹងទុកធៀបនឹងជាក់ស្តែងសម្រាប់ថ្ងៃធ្វើការដែលបានបិទ។"
 }

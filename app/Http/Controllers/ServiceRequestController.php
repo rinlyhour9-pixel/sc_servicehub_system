@@ -74,7 +74,9 @@ class ServiceRequestController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'customer_id' => ['required', 'exists:customers,id'],
+            'customer_id' => ['nullable', 'required_without:new_customer_name', 'exists:customers,id'],
+            'new_customer_name' => ['nullable', 'required_without:customer_id', 'string', 'max:255'],
+            'new_customer_phone' => ['nullable', 'string', 'max:50', 'unique:customers,phone'],
             'service_category_id' => ['nullable', 'exists:service_categories,id'],
             'assigned_technician_id' => ['nullable', 'exists:technicians,id'],
             'title' => ['required', 'string', 'max:255'],
@@ -83,6 +85,15 @@ class ServiceRequestController extends Controller
             'priority' => ['required', 'in:'.implode(',', ServiceRequest::PRIORITIES)],
             'scheduled_at' => ['nullable', 'date'],
         ]);
+
+        if (empty($data['customer_id']) && ! empty($data['new_customer_name'])) {
+            $customer = Customer::create([
+                'name' => $data['new_customer_name'],
+                'phone' => $data['new_customer_phone'] ?? null,
+            ]);
+            $data['customer_id'] = $customer->id;
+        }
+        unset($data['new_customer_name'], $data['new_customer_phone']);
 
         $data['created_by'] = $request->user()->id;
         $data['status'] = $data['assigned_technician_id'] ?? null

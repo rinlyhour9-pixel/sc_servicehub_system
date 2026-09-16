@@ -5,14 +5,32 @@
         <form method="POST" action="{{ route('service-requests.store') }}" class="space-y-4">
             @csrf
             <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-ink-900 mb-1">{{ __('Customer') }}</label>
-                    <select name="customer_id" required class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm">
-                        <option value="">{{ __('Select customer') }}</option>
-                        @foreach($customers as $customer)
-                            <option value="{{ $customer->id }}" @selected(old('customer_id') == $customer->id)>{{ $customer->name }}</option>
-                        @endforeach
-                    </select>
+                <div x-data="{ newCustomer: {{ old('new_customer_name') ? 'true' : 'false' }} }">
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="block text-sm font-medium text-ink-900">{{ __('Customer') }}</label>
+                        <button type="button" @click="newCustomer = !newCustomer" class="text-xs font-medium text-rust hover:underline">
+                            <span x-show="!newCustomer">{{ __('+ New customer') }}</span>
+                            <span x-show="newCustomer" x-cloak>{{ __('Choose existing') }}</span>
+                        </button>
+                    </div>
+
+                    <div x-show="!newCustomer">
+                        <select name="customer_id" :required="!newCustomer" class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm">
+                            <option value="">{{ __('Select customer') }}</option>
+                            @foreach($customers as $customer)
+                                <option value="{{ $customer->id }}" @selected(old('customer_id') == $customer->id)>{{ $customer->name }}{{ $customer->phone ? ' — '.$customer->phone : '' }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div x-show="newCustomer" x-cloak class="grid grid-cols-2 gap-2">
+                        <input type="text" name="new_customer_name" value="{{ old('new_customer_name') }}" :required="newCustomer"
+                               placeholder="{{ __('Customer name') }}"
+                               class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm">
+                        <input type="text" name="new_customer_phone" value="{{ old('new_customer_phone') }}"
+                               placeholder="{{ __('Phone number') }}"
+                               class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm">
+                    </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-ink-900 mb-1">{{ __('Category') }}</label>
