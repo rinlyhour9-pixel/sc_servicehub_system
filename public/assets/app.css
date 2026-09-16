@@ -3,6 +3,47 @@ aside {
     transition: width .20s ease, background-color .15s ease;
 }
 
+/* Alpine hides [x-cloak] elements only once this rule exists - without it,
+   every x-cloak'd label flashes visible for a frame before Alpine hydrates. */
+[x-cloak] {
+    display: none !important;
+}
+
+/* Below the lg breakpoint the sidebar becomes an off-canvas drawer instead of
+   a permanent column: fixed position (so its own height never pushes the
+   page content down), slid off-screen by default, sliding in over a
+   backdrop when opened. Above lg this block doesn't apply at all - the
+   sidebar stays the normal in-flow column with its existing icon-rail
+   collapse behavior. */
+@media (max-width: 1023.98px) {
+    aside.sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 50;
+        width: 288px !important;
+        transform: translateX(-100%);
+    }
+
+    aside.sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(22, 29, 38, .55);
+}
+
+@media (min-width: 1024px) {
+    .sidebar-backdrop {
+        display: none !important;
+    }
+}
+
 /* Prevent horizontal scroll inside sidebar nav */
 aside nav {
     overflow-x: hidden;

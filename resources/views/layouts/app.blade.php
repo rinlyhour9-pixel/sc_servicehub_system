@@ -66,14 +66,16 @@
         };
         $icon = 'h-6 w-6 shrink-0 text-current';
     @endphp
-    <div x-data="{ sidebarOpen: JSON.parse(localStorage.getItem('sidebarOpen') ?? 'true') }"
+    <div x-data="{ sidebarOpen: JSON.parse(localStorage.getItem('sidebarOpen') ?? (window.matchMedia('(min-width: 1024px)').matches ? 'true' : 'false')) }"
         x-init="$watch('sidebarOpen', value => localStorage.setItem('sidebarOpen', JSON.stringify(value)))"
         class="min-h-screen flex flex-col lg:flex-row">
 
-        <!-- Sidebar (non-responsive) -->
+        <div class="sidebar-backdrop" x-show="sidebarOpen" x-cloak @click="sidebarOpen = false"></div>
+
+        <!-- Permanent column on lg+; off-canvas drawer below lg (see app.css) -->
         <aside
             class="sidebar flex flex-col items-stretch bg-[#45418f] text-white shadow-xl transition-all duration-300 ease-in-out min-h-screen overflow-hidden"
-            :class="sidebarOpen ? 'w-64' : 'w-24'" style="transition: width .2s ease">
+            :class="sidebarOpen ? 'w-64 sidebar-open' : 'w-24 sidebar-closed'" style="transition: width .2s ease">
             <div class="px-4 py-4 border-b border-white/15 sm:px-6 sm:py-6">
                 @php($brand = \App\Models\BusinessSetting::firstOrCreate([], ['business_name' => 'ServiceHub']))
                 <a href="{{ route('dashboard') }}"
@@ -86,7 +88,8 @@
                     <span x-show="sidebarOpen" x-cloak class="truncate">{{ $brand->business_name ?? 'ServiceHub' }}</span>
                 </a>
             </div>
-            <nav class="flex-1 px-2 py-4 text-sm overflow-y-auto sm:px-3 sm:py-5">
+            <nav class="flex-1 px-2 py-4 text-sm overflow-y-auto sm:px-3 sm:py-5"
+                @click="if (window.innerWidth < 1024 && $event.target.closest('a')) sidebarOpen = false">
                 @include('layouts._sidebar_content', ['compact' => true])
             </nav>
             <div class="px-4 py-4 border-t border-white/15 text-sm mt-auto">

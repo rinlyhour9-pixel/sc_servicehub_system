@@ -1,8 +1,3 @@
-@php
-    $customersActive = request()->routeIs('customers.*');
-    $techniciansActive = request()->routeIs('technicians.*');
-@endphp
-
 <a href="{{ route('dashboard') }}"
     class="{{ $navItem('dashboard', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Dashboard' : '' }}>
@@ -14,23 +9,23 @@
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Dashboard') }}</span>
 </a>
 
-<a href="{{ route('notifications.index') }}"
-    class="{{ $navItem('notifications', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
-    {{ $compact ?? false ? 'title=Alerts' : '' }}>
+<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
+    {{ __('Reports') }}
+</p>
+<a href="{{ route('reports.index') }}"
+    class="{{ $navItem('reports', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    {{ $compact ?? false ? 'title=Reports' : '' }}>
     <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
         <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" />
+            <path d="M3 3v18h18" />
+            <path d="M7 15l4-6 3 3 5-7" />
         </svg>
     </span>
-    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Alerts') }}</span>
-    @auth @if (auth()->user()->unreadNotifications()->count())
-        <span x-show="sidebarOpen" x-cloak
-            class="ml-auto rounded-full bg-amber-400 px-2 py-0.5 text-xs text-[#342f73]">{{ auth()->user()->unreadNotifications()->count() }}</span>
-    @endif @endauth
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Reports') }}</span>
 </a>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55">
-    <span x-show="sidebarOpen" x-cloak>{{ __('Service Requests') }}</span>
+<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
+    {{ __('Service Requests') }}
 </p>
 
 <a href="{{ route('service-requests.board') }}"
@@ -47,7 +42,7 @@
 </a>
 
 <a href="{{ route('service-requests.index') }}"
-    class="{{ $navItem('service-requests', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    class="{{ $navItem('service-requests.index', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Service%20Requests' : '' }}>
     <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
         <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -70,108 +65,111 @@
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Create Work Order') }}</span>
 </a>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55">
-    <span x-show="sidebarOpen" x-cloak>{{ __('Technicians') }}</span>
+<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
+    {{ __('Technicians') }}
 </p>
-<div x-data="{ open: {{ $techniciansActive ? 'true' : 'false' }} }" class="px-2">
-    <button @click="open = !open" type="button"
-        class="w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition
-            {{ $techniciansActive ? 'bg-amber-400 text-[#342f73] font-semibold shadow-sm ring-1 ring-amber-200' : 'text-white/80 hover:bg-white/10' }}">
-        <span class="flex items-center gap-3">
-            <span
-                class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md {{ $techniciansActive ? 'bg-[#342f73]/10' : 'bg-white/10' }}">
-                <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-            </span>
-            <span class="font-medium tracking-wide text-sm truncate" x-show="sidebarOpen" x-cloak>{{ __('Technicians') }}</span>
-        </span>
-        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform"
-            :class="open ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2">
-            <path d="m6 9 6 6 6-6" />
+
+<a href="{{ route('technicians.index') }}"
+    class="{{ $navItem('technicians.index', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    {{ $compact ?? false ? 'title=Technician%20List' : '' }}>
+    <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
+        <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
-    </button>
+    </span>
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Technician List') }}</span>
+</a>
 
-    <div x-show="open && sidebarOpen" x-transition class="mt-1 bg-white rounded-lg shadow-md p-1.5 space-y-0.5">
-        <a href="{{ route('technicians.index') }}"
-            class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-900/80 hover:bg-paper">
-            <span class="flex h-5 w-5 items-center justify-center text-base leading-none text-ink-900/40">◌</span>
-            <span>{{ __('Technician List') }}</span>
-        </a>
+<a href="{{ route('technicians.create') }}"
+    class="{{ $navItem('technicians.create', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    {{ $compact ?? false ? 'title=New%20Technician' : '' }}>
+    <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
+        <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <line x1="19" y1="8" x2="19" y2="14" />
+            <line x1="22" y1="11" x2="16" y2="11" />
+        </svg>
+    </span>
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('New Technician') }}</span>
+</a>
 
-        <a href="{{ route('technicians.create') }}"
-            class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-900/80 hover:bg-paper">
-            <span class="flex h-5 w-5 items-center justify-center text-base leading-none text-ink-900/40">＋</span>
-            <span>{{ __('New Technician') }}</span>
-        </a>
+<a href="{{ route('technicians.assign') }}"
+    class="{{ $navItem('technicians.assign', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    {{ $compact ?? false ? 'title=Assign%20Technician' : '' }}>
+    <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
+        <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 2l4 4-4 4" />
+            <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+            <path d="M7 22l-4-4 4-4" />
+            <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+        </svg>
+    </span>
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Assign Technician') }}</span>
+</a>
 
-        <a href="{{ route('technicians.assign') }}"
-            class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-900/80 hover:bg-paper">
-            <span class="flex h-5 w-5 items-center justify-center text-base leading-none text-ink-900/40">⇄</span>
-            <span>{{ __('Assign Technician') }}</span>
-        </a>
+<a href="{{ route('technicians.complete') }}"
+    class="{{ $navItem('technicians.complete', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    {{ $compact ?? false ? 'title=Technician%20Work' : '' }}>
+    <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
+        <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 6 9 17l-5-5" />
+        </svg>
+    </span>
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Technician Work') }}</span>
+</a>
 
-        <a href="{{ route('technicians.complete') }}"
-            class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-900/80 hover:bg-paper">
-            <span class="flex h-5 w-5 items-center justify-center text-base leading-none text-ink-900/40">✓</span>
-            <span>{{ __('Technician Work') }}</span>
-        </a>
-    </div>
-</div>
-
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55">
-    <span x-show="sidebarOpen" x-cloak>{{ __('Customers') }}</span>
+<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
+    {{ __('Customers') }}
 </p>
-<div x-data="{ open: {{ $customersActive ? 'true' : 'false' }} }" class="px-2">
-    <button @click="open = !open" type="button"
-        class="w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition
-            {{ $customersActive ? 'bg-amber-400 text-[#342f73] font-semibold shadow-sm ring-1 ring-amber-200' : 'text-white/80 hover:bg-white/10' }}">
-        <span class="flex items-center gap-3">
-            <span
-                class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md {{ $customersActive ? 'bg-[#342f73]/10' : 'bg-white/10' }}">
-                <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-            </span>
-            <span class="font-medium tracking-wide text-sm truncate" x-show="sidebarOpen" x-cloak>{{ __('Customers') }}</span>
-        </span>
-        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform"
-            :class="open ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2">
-            <path d="m6 9 6 6 6-6" />
+
+<a href="{{ route('customers.index') }}"
+    class="{{ $navItem('customers.index', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    {{ $compact ?? false ? 'title=Customer%20List' : '' }}>
+    <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
+        <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
-    </button>
+    </span>
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Customer List') }}</span>
+</a>
 
-    <div x-show="open && sidebarOpen" x-transition class="mt-1 bg-white rounded-lg shadow-md p-1.5 space-y-0.5">
-        <a href="{{ route('customers.index') }}"
-            class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-900/80 hover:bg-paper">
-            <span class="flex h-5 w-5 items-center justify-center text-base leading-none text-ink-900/40">◌</span>
-            <span>{{ __('Customer List') }}</span>
-        </a>
+<a href="{{ route('customers.create') }}"
+    class="{{ $navItem('customers.create', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    {{ $compact ?? false ? 'title=New%20Customer' : '' }}>
+    <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
+        <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <line x1="19" y1="8" x2="19" y2="14" />
+            <line x1="22" y1="11" x2="16" y2="11" />
+        </svg>
+    </span>
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('New Customer') }}</span>
+</a>
 
-        <a href="{{ route('customers.create') }}"
-            class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-900/80 hover:bg-paper">
-            <span class="flex h-5 w-5 items-center justify-center text-base leading-none text-ink-900/40">＋</span>
-            <span>{{ __('New Customer') }}</span>
-        </a>
+<a href="{{ route('customers.index', ['supplier' => 1]) }}"
+    class="flex w-full items-center gap-3 px-3 py-2 rounded-lg mb-1 transition text-left text-white/80 hover:bg-white/10"
+    {{ $compact ?? false ? 'title=Supplier%20List' : '' }}>
+    <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
+        <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6" />
+            <line x1="8" y1="12" x2="21" y2="12" />
+            <line x1="8" y1="18" x2="21" y2="18" />
+            <line x1="3" y1="6" x2="3.01" y2="6" />
+            <line x1="3" y1="12" x2="3.01" y2="12" />
+            <line x1="3" y1="18" x2="3.01" y2="18" />
+        </svg>
+    </span>
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Supplier List') }}</span>
+</a>
 
-        <a href="{{ route('customers.index') }}?supplier=1"
-            class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-900/80 hover:bg-paper">
-            <span class="flex h-5 w-5 items-center justify-center text-base leading-none text-ink-900/40">≣</span>
-            <span>{{ __('Supplier List') }}</span>
-        </a>
-    </div>
-</div>
-
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55">
-    <span x-show="sidebarOpen" x-cloak>{{ __('Billing') }}</span>
+<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
+    {{ __('Billing') }}
 </p>
 <a href="{{ route('invoices.index') }}"
     class="{{ $navItem('invoices', $compact ?? false) }} flex items-center gap-3 px-3 py-2"
@@ -186,8 +184,8 @@
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Invoices & Payments') }}</span>
 </a>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55">
-    <span x-show="sidebarOpen" x-cloak>{{ __('Cash & Day') }}</span>
+<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
+    {{ __('Cash & Day') }}
 </p>
 <a href="{{ route('wallet.index') }}"
     class="{{ $navItem('wallet', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
@@ -215,24 +213,24 @@
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Open / End Day') }}</span>
 </a>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55">
-    <span x-show="sidebarOpen" x-cloak>{{ __('Reports') }}</span>
+<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
+    {{ __('Administration') }}
 </p>
-<a href="{{ route('reports.index') }}"
-    class="{{ $navItem('reports', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
-    {{ $compact ?? false ? 'title=Reports' : '' }}>
+<a href="{{ route('notifications.index') }}"
+    class="{{ $navItem('notifications', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
+    {{ $compact ?? false ? 'title=Alerts' : '' }}>
     <span class="shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-white/5 text-white/80">
         <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 3v18h18" />
-            <path d="M7 15l4-6 3 3 5-7" />
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" />
         </svg>
     </span>
-    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Reports') }}</span>
+    <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Alerts') }}</span>
+    @auth @if (auth()->user()->unreadNotifications()->count())
+        <span x-show="sidebarOpen" x-cloak
+            class="ml-auto rounded-full bg-amber-400 px-2 py-0.5 text-xs text-[#342f73]">{{ auth()->user()->unreadNotifications()->count() }}</span>
+    @endif @endauth
 </a>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55">
-    <span x-show="sidebarOpen" x-cloak>{{ __('Administration') }}</span>
-</p>
 <a href="{{ route('categories.index') }}"
     class="{{ $navItem('categories', $compact ?? false) }} flex items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Service%20Categories' : '' }}>
