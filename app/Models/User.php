@@ -18,6 +18,8 @@ class User extends Authenticatable
         'password',
         'phone',
         'is_active',
+        'role',
+        'availability',
     ];
 
     protected $hidden = [
@@ -29,10 +31,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'is_active' => 'boolean',
+        'availability' => 'array',
     ];
+
+    public const ROLE_CLIENT = 'client';
+
+    public const ROLE_TECHNICIAN = 'technician';
+
+    public const ROLE_ADMIN = 'admin';
 
     public function createdServiceRequests()
     {
         return $this->hasMany(ServiceRequest::class, 'created_by');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'client_id');
+    }
+
+    public function assignedBookings()
+    {
+        return $this->hasMany(Booking::class, 'technician_id');
     }
 }

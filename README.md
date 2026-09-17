@@ -3,6 +3,12 @@
 A Laravel app for managing customer service requests: intake, technician assignment,
 status tracking, notes/history, and invoicing.
 
+## Mobile API
+
+The mobile API is served from `/api` and uses Laravel Sanctum bearer tokens. Public registration always creates a `client`; `admin` and `technician` accounts must be provisioned by an administrator or directly in the `users` table.
+
+Run `php artisan migrate` and `php artisan storage:link` before using photo uploads. The route contract is in `routes/api.php`; booking creation and technician completion accept `multipart/form-data` with repeated `photos[]` image fields. Send `scheduled_at` as an ISO-8601 datetime.
+
 ## Features
 
 - Role-based access: Admin, Technician, Staff
