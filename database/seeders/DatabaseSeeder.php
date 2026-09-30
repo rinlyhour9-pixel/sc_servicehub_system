@@ -75,6 +75,8 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Fridge Repair', 'description' => 'Refrigerator and freezer repair'],
         ])->map(fn ($c) => ServiceCategory::updateOrCreate(['name' => $c['name']], $c));
 
+        $this->call(ServiceSeeder::class);
+
         $customers = collect([
             ['name' => 'ហាងសាខា', 'email' => 'contact@acmeretail.test', 'phone' => '012 100 123', 'address' => 'Street 12, Phnom Penh', 'password' => Hash::make('123456')],
             ['name' => 'លីណា សុវណ្ណ', 'email' => 'lena.ortiz@test.com', 'phone' => '017 444 999', 'address' => 'Street 48, Phnom Penh'],

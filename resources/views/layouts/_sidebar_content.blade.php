@@ -9,9 +9,18 @@
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Dashboard') }}</span>
 </a>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
-    {{ __('Reports') }}
-</p>
+
+<details class="group mb-1" {{ request()->routeIs('reports.*') ? 'open' : '' }}>
+    <summary title="{{ __('Reports') }}" class="flex list-none cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white">
+        <span class="shrink-0 flex h-6 w-6 items-center justify-center rounded-md bg-white/5 text-white/80">
+            <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3v18h18" /><path d="m7 14 4-5 4 3 5-7" /></svg>
+        </span>
+        <span class="min-w-0 flex-1 truncate" x-show="sidebarOpen" x-cloak>{{ __('Reports') }}</span>
+        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform group-open:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+        </svg>
+    </summary>
+    <div class="mt-1">
 <a href="{{ route('reports.index') }}"
     class="{{ $navItem('reports', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Reports' : '' }}>
@@ -23,11 +32,20 @@
     </span>
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Reports') }}</span>
 </a>
+    </div>
+</details>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
-    {{ __('Service Requests') }}
-</p>
-
+<details class="group mb-1" {{ request()->routeIs('service-requests.*') ? 'open' : '' }}>
+    <summary title="{{ __('Service Requests') }}" class="flex list-none cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white">
+        <span class="shrink-0 flex h-6 w-6 items-center justify-center rounded-md bg-white/5 text-white/80">
+            <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1" /><rect x="10" y="4" width="5" height="10" rx="1" /><rect x="17" y="4" width="5" height="13" rx="1" /></svg>
+        </span>
+        <span class="min-w-0 flex-1 truncate" x-show="sidebarOpen" x-cloak>{{ __('Service Requests') }}</span>
+        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform group-open:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+        </svg>
+    </summary>
+    <div class="mt-1">
 <a href="{{ route('service-requests.board') }}"
     class="{{ $navItem('service-requests.board', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Pipeline%20Board' : '' }}>
@@ -64,11 +82,20 @@
     </span>
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Create Work Order') }}</span>
 </a>
+    </div>
+</details>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
-    {{ __('Technicians') }}
-</p>
-
+<details class="group mb-1" {{ request()->routeIs('technicians.*') ? 'open' : '' }}>
+    <summary title="{{ __('Technicians') }}" class="flex list-none cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white">
+        <span class="shrink-0 flex h-6 w-6 items-center justify-center rounded-md bg-white/5 text-white/80">
+            <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+        </span>
+        <span class="min-w-0 flex-1 truncate" x-show="sidebarOpen" x-cloak>{{ __('Technicians') }}</span>
+        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform group-open:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+        </svg>
+    </summary>
+    <div class="mt-1">
 <a href="{{ route('technicians.index') }}"
     class="{{ $navItem('technicians.index', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Technician%20List' : '' }}>
@@ -120,11 +147,20 @@
     </span>
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Technician Work') }}</span>
 </a>
+    </div>
+</details>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
-    {{ __('Customers') }}
-</p>
-
+<details class="group mb-1" {{ request()->routeIs('customers.*') ? 'open' : '' }}>
+    <summary title="{{ __('Customers') }}" class="flex list-none cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white">
+        <span class="shrink-0 flex h-6 w-6 items-center justify-center rounded-md bg-white/5 text-white/80">
+            <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /></svg>
+        </span>
+        <span class="min-w-0 flex-1 truncate" x-show="sidebarOpen" x-cloak>{{ __('Customers') }}</span>
+        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform group-open:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+        </svg>
+    </summary>
+    <div class="mt-1">
 <a href="{{ route('customers.index') }}"
     class="{{ $navItem('customers.index', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Customer%20List' : '' }}>
@@ -167,10 +203,20 @@
     </span>
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Supplier List') }}</span>
 </a>
+    </div>
+</details>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
-    {{ __('Billing') }}
-</p>
+<details class="group mb-1" {{ request()->routeIs('invoices.*') ? 'open' : '' }}>
+    <summary title="{{ __('Billing') }}" class="flex list-none cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white">
+        <span class="shrink-0 flex h-6 w-6 items-center justify-center rounded-md bg-white/5 text-white/80">
+            <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 3h16v18l-3-2-3 2-3-2-3 2-4-2z" /><path d="M8 9h8M8 13h8" /></svg>
+        </span>
+        <span class="min-w-0 flex-1 truncate" x-show="sidebarOpen" x-cloak>{{ __('Billing') }}</span>
+        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform group-open:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+        </svg>
+    </summary>
+    <div class="mt-1">
 <a href="{{ route('invoices.index') }}"
     class="{{ $navItem('invoices', $compact ?? false) }} flex items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Invoices%20%26%20Payments' : '' }}>
@@ -183,10 +229,20 @@
     </span>
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Invoices & Payments') }}</span>
 </a>
+    </div>
+</details>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
-    {{ __('Cash & Day') }}
-</p>
+<details class="group mb-1" {{ request()->routeIs('wallet.*', 'daily-operations.*') ? 'open' : '' }}>
+    <summary title="{{ __('Cash & Day') }}" class="flex list-none cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white">
+        <span class="shrink-0 flex h-6 w-6 items-center justify-center rounded-md bg-white/5 text-white/80">
+            <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20M7 15h3" /></svg>
+        </span>
+        <span class="min-w-0 flex-1 truncate" x-show="sidebarOpen" x-cloak>{{ __('Cash & Day') }}</span>
+        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform group-open:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+        </svg>
+    </summary>
+    <div class="mt-1">
 <a href="{{ route('wallet.index') }}"
     class="{{ $navItem('wallet', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Wallet%20%26%20Cash' : '' }}>
@@ -212,10 +268,20 @@
     </span>
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Open / End Day') }}</span>
 </a>
+    </div>
+</details>
 
-<p class="mt-5 mb-2 px-3 text-[11px] font-semibold uppercase tracking-wide text-white/55" x-show="sidebarOpen" x-cloak>
-    {{ __('Administration') }}
-</p>
+<details class="group mb-1" {{ request()->routeIs('notifications.*', 'categories.*', 'manage-users.*', 'users.*', 'business-settings.*') ? 'open' : '' }}>
+    <summary title="{{ __('Administration') }}" class="flex list-none cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white">
+        <span class="shrink-0 flex h-6 w-6 items-center justify-center rounded-md bg-white/5 text-white/80">
+            <svg class="{{ $icon }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" /></svg>
+        </span>
+        <span class="min-w-0 flex-1 truncate" x-show="sidebarOpen" x-cloak>{{ __('Administration') }}</span>
+        <svg x-show="sidebarOpen" x-cloak class="h-4 w-4 shrink-0 transition-transform group-open:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+        </svg>
+    </summary>
+    <div class="mt-1">
 <a href="{{ route('notifications.index') }}"
     class="{{ $navItem('notifications', $compact ?? false) }} flex w-full items-center gap-3 px-3 py-2"
     {{ $compact ?? false ? 'title=Alerts' : '' }}>
@@ -268,3 +334,5 @@
     </span>
     <span class="truncate" x-show="sidebarOpen" x-cloak>{{ __('Business Name & Logo') }}</span>
 </a>
+    </div>
+</details>
