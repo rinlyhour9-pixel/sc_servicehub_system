@@ -3,6 +3,7 @@
 @section('content')
     @php
         $reports = [
+            ['route' => 'reports.history', 'title' => 'Sales & Service History', 'desc' => 'Browse every job with its completion status, technician, and amount.', 'color' => 'text-rust'],
             ['route' => 'reports.revenue', 'title' => 'Revenue Report', 'desc' => 'Income by day, cash vs bank/QR, expenses and net total.', 'color' => 'text-moss'],
             ['route' => 'reports.service-requests', 'title' => 'Service Requests Report', 'desc' => 'Ticket volume by status, priority, category, and average turnaround.', 'color' => 'text-rust'],
             ['route' => 'reports.technicians', 'title' => 'Technician Performance', 'desc' => 'Jobs completed vs open per technician, with completion rate.', 'color' => 'text-mustard'],

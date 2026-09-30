@@ -66,7 +66,7 @@ class ServiceRequestController extends Controller
     {
         $customers = Customer::orderBy('name')->get();
         $categories = ServiceCategory::orderBy('name')->get();
-        $technicians = Technician::where('is_active', true)->orderBy('name')->get();
+        $technicians = Technician::where('is_active', true)->with('serviceCategories')->orderBy('name')->get();
 
         return view('service-requests.create', compact('customers', 'categories', 'technicians'));
     }
@@ -111,7 +111,15 @@ class ServiceRequestController extends Controller
     {
         $serviceRequest->load(['customer', 'technician', 'category', 'creator', 'notes.user', 'attachments.uploader', 'invoice.items']);
 
-        $technicians = Technician::where('is_active', true)->orderBy('name')->get();
+        $technicians = Technician::where('is_active', true)
+            ->with('serviceCategories')
+            ->orderBy('name')
+            ->get()
+            ->filter(fn ($tech) => ! $serviceRequest->service_category_id
+                || $tech->serviceCategories->isEmpty()
+                || $tech->serviceCategories->contains('id', $serviceRequest->service_category_id)
+                || $tech->id === $serviceRequest->assigned_technician_id)
+            ->values();
 
         return view('service-requests.show', compact('serviceRequest', 'technicians'));
     }

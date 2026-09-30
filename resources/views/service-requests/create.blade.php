@@ -34,7 +34,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-ink-900 mb-1">{{ __('Category') }}</label>
-                    <select name="service_category_id" class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm">
+                    <select name="service_category_id" id="category-select" class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm">
                         <option value="">{{ __('Uncategorized') }}</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" @selected(old('service_category_id') == $category->id)>{{ $category->name }}</option>
@@ -69,12 +69,14 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-ink-900 mb-1">{{ __('Technician') }}</label>
-                    <select name="assigned_technician_id" class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm">
+                    <select name="assigned_technician_id" id="technician-select" class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm">
                         <option value="">{{ __('Unassigned') }}</option>
                         @foreach($technicians as $tech)
-                            <option value="{{ $tech->id }}" @selected(old('assigned_technician_id') == $tech->id)>{{ $tech->name }}</option>
+                            <option value="{{ $tech->id }}" data-categories="{{ $tech->serviceCategories->pluck('id')->implode(',') }}"
+                                @selected(old('assigned_technician_id') == $tech->id)>{{ $tech->name }}</option>
                         @endforeach
                     </select>
+                    <p class="mt-1 text-xs text-ink-900/40">{{ __('Only technicians skilled in the selected category are shown.') }}</p>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-ink-900 mb-1">{{ __('Scheduled') }}</label>
@@ -85,5 +87,32 @@
 
             <button class="bg-rust hover:bg-rust-600 text-white text-sm font-medium rounded-md px-4 py-2 transition">{{ __('Create ticket') }}</button>
         </form>
+
+        <script>
+            (function () {
+                const categorySelect = document.getElementById('category-select');
+                const technicianSelect = document.getElementById('technician-select');
+                if (!categorySelect || !technicianSelect) return;
+                const options = Array.from(technicianSelect.options);
+
+                function applyFilter() {
+                    const categoryId = categorySelect.value;
+                    options.forEach(opt => {
+                        if (!opt.value) return; // "Unassigned" is always available
+                        const skills = (opt.dataset.categories || '').split(',').filter(Boolean);
+                        const matches = !categoryId || skills.length === 0 || skills.includes(categoryId);
+                        opt.hidden = !matches;
+                        opt.disabled = !matches;
+                    });
+                    const selected = technicianSelect.options[technicianSelect.selectedIndex];
+                    if (selected && selected.hidden) {
+                        technicianSelect.value = '';
+                    }
+                }
+
+                categorySelect.addEventListener('change', applyFilter);
+                applyFilter();
+            })();
+        </script>
     </div>
 @endsection

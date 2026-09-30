@@ -18,13 +18,13 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            'phone' => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
             'password' => ['required'],
         ]);
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'phone' => __('These credentials do not match our records.'),
+                'email' => __('These credentials do not match our records.'),
             ]);
         }
 

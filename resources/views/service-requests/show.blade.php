@@ -131,6 +131,9 @@
                     </select>
                     <button class="bg-ink-800 hover:bg-ink-700 text-white text-sm font-medium rounded-md px-3 py-2 transition">{{ __('Save') }}</button>
                 </form>
+                @if ($serviceRequest->category)
+                    <p class="mt-2 text-xs text-ink-900/40">{{ __('Only technicians skilled in :category are shown.', ['category' => $serviceRequest->category->name]) }}</p>
+                @endif
             </div>
 
             <div class="bg-white rounded-lg border border-ink-900/10 p-5">

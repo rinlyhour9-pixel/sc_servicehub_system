@@ -20,6 +20,47 @@ class ReportController extends Controller
         return view('reports.index');
     }
 
+    public function history(Request $request)
+    {
+        [$from, $to] = $this->resolveRange($request);
+
+        $query = ServiceRequest::whereBetween('created_at', [$from, $to])
+            ->with(['customer', 'technician', 'category', 'invoice.items']);
+
+        if ($request->filled('customer_id')) {
+            $query->where('customer_id', $request->customer_id);
+        }
+
+        if ($request->filled('technician_id')) {
+            $query->where('assigned_technician_id', $request->technician_id);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('ticket_number', 'like', "%{$search}%")
+                    ->orWhereHas('customer', fn ($c) => $c->where('name', 'like', "%{$search}%"));
+            });
+        }
+
+        $records = $query->latest()->paginate(20)->withQueryString();
+
+        $totalRevenue = (clone $query)->get()->sum(fn ($sr) => $sr->invoice ? $sr->invoice->total() : 0);
+        $completedCount = (clone $query)->where('status', ServiceRequest::STATUS_COMPLETED)->count();
+
+        $customers = Customer::orderBy('name')->get();
+        $technicians = Technician::orderBy('name')->get();
+
+        return view('reports.history', compact(
+            'from', 'to', 'records', 'totalRevenue', 'completedCount', 'customers', 'technicians'
+        ));
+    }
+
     public function revenue(Request $request)
     {
         [$from, $to] = $this->resolveRange($request);

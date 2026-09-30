@@ -100,8 +100,11 @@ class TechnicianController extends Controller
 
     public function assign()
     {
-        $technicians = Technician::where('is_active', true)->orderBy('name')->get();
-        $requests = ServiceRequest::whereNotIn('status', [ServiceRequest::STATUS_COMPLETED, ServiceRequest::STATUS_CANCELLED])->orderBy('scheduled_at')->get();
+        $technicians = Technician::where('is_active', true)->with('serviceCategories')->orderBy('name')->get();
+        $requests = ServiceRequest::whereNotIn('status', [ServiceRequest::STATUS_COMPLETED, ServiceRequest::STATUS_CANCELLED])
+            ->with('category')
+            ->orderBy('scheduled_at')
+            ->get();
         return view('technicians.assign', compact('technicians', 'requests'));
     }
 

@@ -7,8 +7,8 @@
         class="space-y-4 bg-white p-6 rounded shadow-sm border border-ink-900/10">
         @csrf
         <div>
-            <label class="block text-sm font-medium text-ink-900 mb-1">{{ __('Phone number') }}</label>
-            <input type="text" name="phone" value="{{ old('phone') }}" required autofocus
+            <label class="block text-sm font-medium text-ink-900 mb-1">{{ __('Email') }}</label>
+            <input type="email" name="email" value="{{ old('email') }}" required autofocus
                 class="w-full rounded-md border-ink-900/20 focus:border-rust focus:ring-rust text-sm px-3 py-2">
         </div>
         <div>
@@ -30,7 +30,7 @@
     <div class="mt-4 text-center">
         <p class="text-xs text-ink-900/40">{{ __('Demo account') }}</p>
         <div class="inline-flex items-center gap-3 mt-3 bg-ink-900/5 rounded-md px-3 py-2 text-sm">
-            <div class="text-ink-900/70" id="demoPhone">012 000 001</div>
+            <div class="text-ink-900/70" id="demoEmail">admin@gmail.com</div>
             <div class="text-ink-900/70">/</div>
             <div class="text-ink-900/70">123456</div>
             <button id="demoFill" class="ml-3 bg-rust text-white text-xs px-3 py-1 rounded shadow-sm">{{ __('Use demo credentials') }}</button>
@@ -43,9 +43,9 @@
             if (!btn) return;
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                const phoneInput = document.querySelector('input[name="phone"]');
+                const emailInput = document.querySelector('input[name="email"]');
                 const passInput = document.querySelector('input[name="password"]');
-                if (phoneInput) phoneInput.value = document.getElementById('demoPhone').textContent.trim();
+                if (emailInput) emailInput.value = document.getElementById('demoEmail').textContent.trim();
                 if (passInput) passInput.value = '123456';
             });
         });

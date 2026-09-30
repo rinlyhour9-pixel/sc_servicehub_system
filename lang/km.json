@@ -347,5 +347,21 @@
     "Jobs completed vs open per technician, with completion rate.": "ការងារបានបញ្ចប់ធៀបនឹងកំពុងដំណើរការក្នុងមួយជាងបច្ចេកទេស ជាមួយអត្រាបញ្ចប់។",
     "Top customers by revenue and service history.": "អតិថិជនកំពូលតាមចំណូល និងប្រវត្តិសេវាកម្ម។",
     "Paid vs unpaid totals and outstanding balance aging.": "សរុបបានទូទាត់ធៀបនឹងមិនទាន់ទូទាត់ និងអាយុកាលសមតុល្យនៅសល់។",
-    "Expected vs actual cash per closed business day.": "សាច់ប្រាក់រំពឹងទុកធៀបនឹងជាក់ស្តែងសម្រាប់ថ្ងៃធ្វើការដែលបានបិទ។"
+    "Expected vs actual cash per closed business day.": "សាច់ប្រាក់រំពឹងទុកធៀបនឹងជាក់ស្តែងសម្រាប់ថ្ងៃធ្វើការដែលបានបិទ។",
+    "Sales & Service History": "ប្រវត្តិលក់ និងសេវាកម្ម",
+    "Browse every job with its completion status, technician, and amount.": "មើលការងារទាំងអស់ជាមួយស្ថានភាពបញ្ចប់ ជាងបច្ចេកទេស និងចំនួនទឹកប្រាក់។",
+    "All customers": "អតិថិជនទាំងអស់",
+    "Reset": "កំណត់ឡើងវិញ",
+    "Search": "ស្វែងរក",
+    "Ticket, title, or customer": "លេខសំណើ ចំណងជើង ឬអតិថិជន",
+    "Jobs in range": "ការងារក្នុងចន្លោះពេល",
+    "Total revenue": "ចំណូលសរុប",
+    "Completed?": "បានបញ្ចប់?",
+    "Payment": "ការទូទាត់",
+    "No invoice": "គ្មានវិក្កយបត្រ",
+    "No jobs match these filters.": "គ្មានការងារត្រូវនឹងតម្រងទាំងនេះទេ។",
+    "Only technicians skilled in the selected category are shown.": "បង្ហាញតែជាងបច្ចេកទេសដែលមានជំនាញត្រូវនឹងប្រភេទដែលបានជ្រើសរើសប៉ុណ្ណោះ។",
+    "Only technicians skilled in :category are shown.": "បង្ហាញតែជាងបច្ចេកទេសដែលមានជំនាញផ្នែក :category ប៉ុណ្ណោះ។",
+    "Select technician": "ជ្រើសរើសជាងបច្ចេកទេស",
+    "Only technicians skilled in the selected request's category are shown.": "បង្ហាញតែជាងបច្ចេកទេសដែលមានជំនាញត្រូវនឹងប្រភេទសំណើដែលបានជ្រើសរើសប៉ុណ្ណោះ។"
 }

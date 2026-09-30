@@ -4,8 +4,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Client\AuthController as ClientAuthController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DailyOperationController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ManageUsersController;
@@ -90,6 +90,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('reports')->name('reports.')->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('index');
+        Route::get('/history', [ReportController::class, 'history'])->name('history');
         Route::get('/revenue', [ReportController::class, 'revenue'])->name('revenue');
         Route::get('/service-requests', [ReportController::class, 'serviceRequests'])->name('service-requests');
         Route::get('/technicians', [ReportController::class, 'technicians'])->name('technicians');
